@@ -4,9 +4,6 @@
 #include <vector>
 #include <stdlib.h>
 using namespace std;
-/*
-test
-*/
 
 class Soft{
 
@@ -15,6 +12,9 @@ class Soft{
         virtual ~Soft();
         void getDuration(vector<Soft>& softEvent,int index);
         void getLocation(vector<Soft>& softEvent,int index);
+        void getTask(vector<Soft>& softEvent,int index);
+        void getDate(vector<Soft>& softEvent,int index,int month,int day);
+        void getDueTime(vector<Soft>& softEvent,int index);
 
         void set_location_name();
         char* get_location_name(int i);
@@ -30,6 +30,11 @@ class Soft{
         void set_duration(int a);
         void set_user_location(char* a);
         char* get_user_location();
+        char* get_task();
+        void set_task(char* a);
+        void set_hard_task_list();
+        int get_due();
+        void set_due(int a);
 
     protected:
 
@@ -41,8 +46,10 @@ class Soft{
         char** location_name;///name of the location that event happends
         char* user_loaction;
         unsigned int duration;
+        char* task;
+        char** soft_task_list;
+        int due;
 
 };
 
 #endif // SOFT_H
-
