@@ -12,8 +12,9 @@
     - added functions change an event 
 
 
-
-
+    4/16/2016
+    - hard event into calender 
+    - added calkender class
 
 
 */
@@ -28,6 +29,7 @@ using namespace std;
 class Event{
 
     friend class Soft;
+    friend class calender;
 
     public:
         Event(time_t start, time_t end,char* location);
@@ -39,7 +41,7 @@ class Event{
         void getUserinfo();
         time_t getStartTime(vector<Event>& eventList,int index);
         void getEndTime(time_t start,vector<Event>& HardEvent,int index);
-        void getDate(vector<Event>& HardEvent, int index);
+        void getDate(vector<Event>& HardEvent, int index,int month, int day);
         void makeChange(vector<Event>& HardEvent);
         int pickChangeField(vector<Event>& HardEvent, int choice);
         void changeField(vector<Event>& HardEvent, int index,int field);
@@ -47,6 +49,7 @@ class Event{
         void getSleepingTime(vector<Event>& eventList,int index);
         bool validStartingTime(vector<Event>& eventList,int i,int index);
         bool validSleepTime(vector<Event>& eventList,int i,int index);
+        void getTask(vector<Event>& eventList,int index);
 
         ///getter and setter
         double get_location_x();
@@ -71,6 +74,9 @@ class Event{
         void set_day(int a);
         int get_month();
         void set_month(int a);
+        char* get_task();
+        void set_task(char* a);
+        void set_hard_task_list();
 
     protected:
 
@@ -87,7 +93,8 @@ class Event{
         time_t sleep_time_begin;
         time_t sleep_time_end;
         char* user_loaction;
-
+        char* task;
+        char** hard_task_list;
 };
 
 #endif // EVENT_H
