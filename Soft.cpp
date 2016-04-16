@@ -9,13 +9,96 @@ Soft::Soft(){
     //ctor
 
     location_name = new char*[25];
+    soft_task_list = new char*[6];
     set_location_name();
+    set_hard_task_list();
 }
 
 
 Soft::~Soft()
 {
     //dtor
+}
+
+void Soft::getDueTime(vector<Soft>& softEvent,int index){
+
+    int due;
+    bool valid = true;
+
+    cout<<"Pick due time"<<endl;
+    for(int i=0;i<24;i++){
+        cout<<i+1<<". "<<i<<endl;
+    }
+
+
+    while(valid){
+        cin>>due;
+        if(cin.fail() || due<1 ||due >25){
+            std::cout<<"\n*** Invalid input ***\n";
+            std::cout<<"    Enter an Integer\n";
+            cin.clear();
+            cin.ignore(255, '\n');
+            continue;
+        }
+        softEvent[index].set_due(due-1);
+        valid = false;
+    }
+
+};
+
+void Soft::getDate(vector<Soft>& softEvent,int index,int month, int day){
+    int* dayArray = new int[7];
+    int getDay;
+    bool valid = true;
+
+    softEvent[index].set_month(month);///initializing
+
+    ///day
+    int j=0;
+    int i;
+
+    for(i =day;i<day+7;i++){
+        dayArray[j] =i+1;
+        cout<<j+1<<" "<<month<<"/"<<i+1<<endl;
+        j++;
+    }
+
+    cout<<"choose Due day:";
+
+    valid  = true;
+    while(valid){
+        cin>>getDay;
+        if(cin.fail() ||getDay<0 || getDay>8){
+            std::cout<<"\n*** Invalid input ***\n";
+            std::cout<<"    Enter an Integer\n";
+            cin.clear();
+            cin.ignore(255, '\n');
+            continue;
+        }
+
+        softEvent[index].set_day(dayArray[getDay-1]);///initializing
+        valid = false;
+    }
+
+}//end of getDate
+
+void Soft::getTask(vector<Soft>& softEvent,int index){
+
+   bool valid = true;
+    int choice;
+    for(int i=0;i<3;i++){
+        cout<<i+1<<". "<<soft_task_list[i]<<endl;
+    }
+    cin>>choice;
+
+    while(valid){
+        if(choice<1 || cin.fail() ||choice>5){
+            cout<<"+++ invalid input +++\n\n\n";
+            continue;
+        }
+        valid = false;
+    }
+    softEvent[index].set_task(soft_task_list[choice-1]);
 }
 
 void Soft::getDuration(vector<Soft>& softEvent,int index){
@@ -120,4 +203,31 @@ void Soft::set_user_location(char* a){
 char* Soft::get_user_location(){
     return this->user_loaction;
 }
+char* Soft::get_task(){
+    return task;
+}
+void Soft::set_task(char* task){
+    this->task = task;
+}
+int Soft::get_due(){
+    return due;
+};
+void Soft::set_due(int due){
+    this->due = due;
+};
+void Soft::set_hard_task_list(){
+
+    for(int i=0;i<6;i++){
+        soft_task_list[i] = new char[25];
+        for(int j=0;j<25;j++){
+            soft_task_list[i][j] = '\0';
+        }
+    }
+
+    strcpy(soft_task_list[0],"Goal");///
+    strcpy(soft_task_list[1],"study");
+    strcpy(soft_task_list[2],"gym");
+}
+
+
 
