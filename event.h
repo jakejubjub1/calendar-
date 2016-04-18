@@ -16,7 +16,8 @@
     - hard event into calender 
     - added calkender class
 
-
+    4/18/216
+    
 */
 #ifndef EVENT_H
 #define EVENT_H
