@@ -16,6 +16,7 @@ class Soft{
         void getDate(vector<Soft>& softEvent,int index,int month,int day);
         void getDueTime(vector<Soft>& softEvent,int index);
 
+        ///getters and setters
         void set_location_name();
         char* get_location_name(int i);
         int get_day();
