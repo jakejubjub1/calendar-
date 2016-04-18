@@ -362,19 +362,42 @@ void Event::set_hard_task_list(){
     strcpy(hard_task_list[3],"Class");
     ///create more location...
 }
-void Event::set_location_name(){
+void Event::set_location_name() {
 
-    for(int i=0;i<25;i++){
+    for (int i = 0; i < 25; i++) {
         location_name[i] = new char[25];
-        for(int j=0;j<25;j++){
+        for (int j = 0; j < 25; j++) {
             location_name[i][j] = '\0';
         }
     }
 
-    strcpy(location_name[0],"Library West");
-    strcpy(location_name[1],"Library Marston");
-    strcpy(location_name[2],"Computer Science Building ");
-    ///create more location...
+    strcpy(location_name[0],"Anderson Hall");
+    strcpy(location_name[1],"Ben Hill Griffin Stadium");
+    strcpy(location_name[2],"Broward Hall");
+    strcpy(location_name[3],"Bryan Hall");
+    strcpy(location_name[4],"Carleton Auditorium");
+    strcpy(location_name[5],"Chemistry Lab Building");
+    strcpy(location_name[6],"Computer Science & Engineering (CSE)");
+    strcpy(location_name[7],"Crops & Soils Field Lab");
+    strcpy(location_name[8],"Dauer Hall");
+    strcpy(location_name[9],"Keene-Flint Hall");
+    strcpy(location_name[10],"Griffin-Floyd Hall");
+    strcpy(location_name[11],"Gerson Hall");
+    strcpy(location_name[12],"Human Development Center");
+    strcpy(location_name[13],"The Hub - International Studies Center");
+    strcpy(location_name[14],"Hume Hall");
+    strcpy(location_name[15],"Library West");
+    strcpy(location_name[16],"Little Hall");
+    strcpy(location_name[17],"Matherly Hall");
+    strcpy(location_name[18],"Marston Science Library");
+    strcpy(location_name[19],"McCarty Hall");
+    strcpy(location_name[20],"New Physics Building");
+    strcpy(location_name[21],"Norman Hall");
+    strcpy(location_name[22],"Reitz Union");
+    strcpy(location_name[23],"Rinker Hall");
+    strcpy(location_name[24],"Turlington Hall");
+    strcpy(location_name[25],"Weed Sciences Field Building");
+    
 }
 
 
