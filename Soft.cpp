@@ -84,7 +84,7 @@ void Soft::getDate(vector<Soft>& softEvent,int index,int month, int day){
 
 void Soft::getTask(vector<Soft>& softEvent,int index){
 
-   bool valid = true;
+    bool valid = true;
     int choice;
     for(int i=0;i<3;i++){
         cout<<i+1<<". "<<soft_task_list[i]<<endl;
@@ -156,6 +156,8 @@ void Soft::set_location_name(){
     ///create more location...
 }
 
+
+///getters and setters
 char* Soft::get_location_name(int i){
     return location_name[i];
 };
