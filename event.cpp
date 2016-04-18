@@ -27,7 +27,7 @@ Event::Event(){
     set_location_name();
     set_hard_task_list();
     sleep_time_begin =0; ///default sleep time start
-    sleep_time_end = 8;///default sleep time end
+    sleep_time_end = 6;///default sleep time end
     start_time = 0;
     end_time = 0;
 }
@@ -142,7 +142,7 @@ bool Event::isSleeping(vector<Event>& eventList,int i,int index){
 
     if(i>=eventList[index].get_sleep_time_begin() && i-1<=eventList[index].get_sleep_time_end()){
             return true;
-        }
+    }
         return false;
 }
 
@@ -154,6 +154,7 @@ void Event::getEndTime(time_t start,vector<Event>& eventList,int index){
     for(int i=0;i<24;i++)
         time[i] = i;
 
+    ///display the ending time
     cout<<"Pick ending time"<<endl;
     for(int i=0;i<24;i++){
 
@@ -470,7 +471,7 @@ void showVector(vector<Event>& HardEvent,vector<Soft>& softEvent);
 int main() {
 
     time_t currentTime;
-    struct tm *localTime;
+    struct tm *localTime;///struct to get a current time
     time( &currentTime );                   // Get the current time
     localTime = localtime( &currentTime );  // Convert the current time to the local time
     int Day    = localTime->tm_mday;
@@ -533,16 +534,16 @@ int main() {
             break;
         }
         case 2: {
-
-            ///this needs to be fixed
             showVector(HardEvent,softEvent);
             break;
         }
         case 3: {
             event->makeChange(HardEvent);
+            break;
         }
         case 4:{
             calen->showCalender(HardEvent,softEvent,Month,Day);
+            break;
         }
 
         }//end of switch
@@ -596,11 +597,9 @@ void showVector(vector<Event>& HardEvent,vector<Soft>& softEvent){
                 cout<<"due              : "<<softEvent[i].get_due()<<endl;
                 cout<<"duration         : "<<softEvent[i].get_duration()<<endl;
                 cout<<"Location         : "<<softEvent[i].get_user_location()<<endl<<endl;
-
             }
             break;
         }
     }
-
 }
 
