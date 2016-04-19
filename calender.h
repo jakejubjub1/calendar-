@@ -10,6 +10,9 @@ using namespace std;
 
 class calender{
 
+
+    friend class newSleepTimeChang;
+
     public:
         calender(int size);
         virtual ~calender();
@@ -20,13 +23,20 @@ class calender{
         void fitSoftTask(vector<Soft>& softEvent,int startTimeFrame,int endTimeFrame,int index);
         void findEarliestTimeFrame(int due,int duration,int& startTimeFrame,int& endTimeFrame,bool* schedule,int&consec,int& maxConsec);
         void fintBestFit(int due,int duration,int& startTimeFrame,int& endTimeFrame,bool* schedule,int&consec,int& maxConsec);
+        bool hasEnoughTime(bool* schedule);
 
         int get_counter();
         void increment_counter();
+        bool getcaleCderChar(int a);
+        void setcaleCderChar(int a,char* b);
+        bool getCalenderBool(int a);
+        bool setCalenderBool(int a);
+        bool setCalenderBoolToTrue(int a);///taken
+        bool setCalenderBoolToFalse(int a);///false
 
-         bool getCalenderBool(int a);
     protected:
     private:
+
         char** calenderChar;
         int counter;///keep track of softwork
 
