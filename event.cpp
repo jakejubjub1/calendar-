@@ -396,7 +396,7 @@ void Event::set_location_name() {
     strcpy(location_name[22],"Reitz Union");
     strcpy(location_name[23],"Rinker Hall");
     strcpy(location_name[24],"Turlington Hall");
-    strcpy(location_name[25],"Weed Sciences Field Building");
+   // strcpy(location_name[25],"Weed Sciences Field Building");
     
 }
 
