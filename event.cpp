@@ -2,7 +2,7 @@
 #include "string.h"
 #include "time.h"
 #include "Soft.h"
-#include "calender.h"
+//#include "newSleepTimeChang.h"
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
@@ -26,8 +26,8 @@ Event::Event(){
     hard_task_list = new char*[6];
     set_location_name();
     set_hard_task_list();
-    sleep_time_begin =0; ///default sleep time start
-    sleep_time_end = 6;///default sleep time end
+   // sleep_time_begin =0; ///default sleep time start
+   // sleep_time_end = 6;///default sleep time end
     start_time = 0;
     end_time = 0;
 }
@@ -54,7 +54,6 @@ void Event::getTask(vector<Event>& eventList,int index){
         valid = false;
     }
     eventList[index].set_task(hard_task_list[choice-1]);
-
 
 }
 
@@ -188,6 +187,7 @@ int Event::menu(){
     std::cout<<"2. show list"<<endl;
     std::cout<<"3. change an event"<<endl;
     std::cout<<"4. show Calender"<<endl;
+    std::cout<<"6. sleep time "<<endl;
     std::cout<<"5. Exit"<<endl;
     std::cout<<":";
     std::cin >> choice;
@@ -358,19 +358,18 @@ void Event::set_hard_task_list(){
 
     strcpy(hard_task_list[0],"Event");
     strcpy(hard_task_list[1],"Exam");
-    strcpy(hard_task_list[2],"Assignment");
+    strcpy(hard_task_list[2],"HW");
     strcpy(hard_task_list[3],"Class");
     ///create more location...
 }
-void Event::set_location_name() {
+void Event::set_location_name(){
 
-    for (int i = 0; i < 25; i++) {
+    for(int i=0;i<25;i++){
         location_name[i] = new char[25];
-        for (int j = 0; j < 25; j++) {
+        for(int j=0;j<25;j++){
             location_name[i][j] = '\0';
         }
     }
-
     strcpy(location_name[0],"Anderson Hall");
     strcpy(location_name[1],"Ben Hill Griffin Stadium");
     strcpy(location_name[2],"Broward Hall");
@@ -396,8 +395,7 @@ void Event::set_location_name() {
     strcpy(location_name[22],"Reitz Union");
     strcpy(location_name[23],"Rinker Hall");
     strcpy(location_name[24],"Turlington Hall");
-   // strcpy(location_name[25],"Weed Sciences Field Building");
-    
+
 }
 
 
@@ -488,141 +486,5 @@ int Event::pickChangeField(vector<Event>& HardEvent, int choice){
     }
 
     return num;
-}
-void showVector(vector<Event>& HardEvent,vector<Soft>& softEvent);
-
-int main() {
-
-    time_t currentTime;
-    struct tm *localTime;///struct to get a current time
-    time( &currentTime );                   // Get the current time
-    localTime = localtime( &currentTime );  // Convert the current time to the local time
-    int Day    = localTime->tm_mday;
-    int Month  = localTime->tm_mon + 1;
-    int Year   = localTime->tm_year + 1900;
-    int Hour   = localTime->tm_hour;
-    int Min    = localTime->tm_min;
-    int Sec    = localTime->tm_sec;
-
-
-    Event* event = new Event();///create hard event
-    Soft* soft = new Soft();///create soft event
-    calender* calen = new calender(169);
-
-    std::cout << "This program was exectued at: " << Hour << ":" << Min << ":" << Sec << std::endl;
-    std::cout << "\tThe current data : " << Month << "/" << Day << "/" << Year << endl<<endl;
-    int choice = event->menu();
-
-    vector<Event> HardEvent;
-    vector<Soft> softEvent;
-
-
-    while(choice!= 5) {
-
-        switch(choice) {
-        case 1: {
-            cout<<"1 .hard"<<endl;
-            cout<<"2 .soft"<<endl;
-            int hardOrsoft;
-            cin>> hardOrsoft;
-
-            switch(hardOrsoft) {
-            case 1:{
-                ///create new object for an event
-                Event* newEvent = new Event();
-                ///add new event to evetlist
-                HardEvent.push_back(*newEvent);
-
-                int index = HardEvent.size()-1;
-                event->getDate(HardEvent,index,Month,Day);
-                time_t start = event->getStartTime(HardEvent,index);
-                event->getEndTime(start,HardEvent,index);
-                event->getLocation(HardEvent,index);
-                event->getTask(HardEvent,index);
-                break;
-            }
-            case 2:{
-                Soft* newSoft = new Soft();
-                softEvent.push_back(*newSoft);
-
-                int index = softEvent.size()-1;
-                soft->getDate(softEvent,index,Month,Day);
-                soft->getDueTime(softEvent,index);
-                soft->getDuration(softEvent,index);///done
-                soft->getLocation(softEvent,index);
-                soft->getTask(softEvent,index);
-                break;
-                }
-            }
-            break;
-        }
-        case 2: {
-            showVector(HardEvent,softEvent);
-            break;
-        }
-        case 3: {
-            event->makeChange(HardEvent);
-            break;
-        }
-        case 4:{
-            calen->showCalender(HardEvent,softEvent,Month,Day);
-            break;
-        }
-
-        }//end of switch
-
-        std::cout << "\tThe current data : " << Month << "/" << Day << "/" << Year << std::endl<<endl;
-        choice = event->menu();
-
-    }//ebd of while
-    return 0;
-}
-
-void showVector(vector<Event>& HardEvent,vector<Soft>& softEvent){
-
-    int softOrHard;
-
-    if(HardEvent.size() == 0 && softEvent.size() == 0 ){
-        cout<<"No items to show\n\n";
-        return;
-    }
-
-    cout<<"1. hard"<<endl;
-    cout<<"2. soft"<<endl;
-    cin >>softOrHard;
-
-    switch(softOrHard) {
-        case 1: {
-            if(HardEvent.size() == 0 ) {
-                cout<<"No hard items to show\n\n";
-                return;
-            }
-
-            for(int i=0; i<HardEvent.size(); i++) {
-                cout<<i+1<<"\n";
-                cout<<HardEvent[i].get_month()<<"/"<<HardEvent[i].get_day()<<endl;
-                cout<<"Task Name       : "<<HardEvent[i].get_task()<<endl;
-                cout<<"task start      : "<<HardEvent[i].get_start_time()<<endl;
-                cout<<"task End        : "<<HardEvent[i].get_end_time()<<endl;
-                cout<<"Location        : "<<HardEvent[i].get_user_loaction()<<endl<<endl;
-            }
-            break;
-        }
-        case 2: {
-            if(softEvent.size() == 0 ) {
-                cout<<"No soft items to show\n\n";
-                return;
-            }
-            for(int i=0; i<softEvent.size(); i++) {
-                cout<<i+1<<"\n";
-                cout<<softEvent[i].get_month()<<"/"<<softEvent[i].get_day()<<endl;
-                cout<<"Task Name        : "<<softEvent[i].get_task()<<endl;
-                cout<<"due              : "<<softEvent[i].get_due()<<endl;
-                cout<<"duration         : "<<softEvent[i].get_duration()<<endl;
-                cout<<"Location         : "<<softEvent[i].get_user_location()<<endl<<endl;
-            }
-            break;
-        }
-    }
 }
 
