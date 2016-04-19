@@ -10,6 +10,7 @@ calender::calender(int size){
     calenderChar = new char*[size];///24hours * 7 days
     calenderBool = new bool[size];
     counter = 0;
+
     for(int i=0;i<size;i++){
         calenderBool[i] = false;
     }
@@ -20,6 +21,19 @@ calender::~calender()
 {
     //dtor
 }
+bool calender::setCalenderBoolToTrue(int a){
+    calenderBool[a] = true;
+};
+
+bool calender::setCalenderBoolToFalse(int a){
+     calenderBool[a] = false;
+};
+void calender::setcaleCderChar(int a,char* b){
+    calenderChar[a] = b;
+};
+bool calender::getcaleCderChar(int a){
+    return calenderChar[a];
+};
 
 void calender::showCalender(vector<Event>& eventList,vector<Soft>& softEvent,int month,int day){
     int tempDay =day+1;
@@ -106,7 +120,7 @@ void calender::getTimeFrameSoftEvent(vector<Soft>& softEvent,int day){
     ///temp array for schedule
     bool* schedule  = new bool[169];
 
-    ///copy schedule the
+    ///copy schedule
     for(int i=0;i<168;i++){
         if(i>0)
             schedule[i] = getCalenderBool(i);
@@ -126,8 +140,6 @@ void calender::isFitInSchedule(vector<Soft>& softEvent,int day,int index,bool* s
     int times = 0;
     int base=6;
 
-
-
     ///this is for keep track of sleeping time
     for(int j = 0; j<168; j++) {
         if(j<base) {
@@ -140,6 +152,20 @@ void calender::isFitInSchedule(vector<Soft>& softEvent,int day,int index,bool* s
             base = 0;
             base = 6+24*times;
         }
+
+        /*
+
+        sleepStarts = new int[7];
+        sleepEnds = new int[7];
+
+        for(int i=0;i<7;i++){
+            for(int j=sleepStarts[i];j<=sleepEnds[i];j++){
+                schedule[j] = true;
+            }
+        }
+
+
+        */
     }
 
 
@@ -179,14 +205,15 @@ void calender::isFitInSchedule(vector<Soft>& softEvent,int day,int index,bool* s
 
     ///its flag for now but
     ///a user can change one function to the other
-    int flag =0;
-    if(flag == 0) {
+    int flag =1;
+    if(flag == 0){
 
         ///funnction 1
         ///find the earliest possible time frame
         findEarliestTimeFrame(due,duration,startTimeFrame,endTimeFrame,schedule,consec,maxConsec);
 
-    } else{
+    }
+    else{
 
         /*
 
@@ -200,9 +227,10 @@ void calender::isFitInSchedule(vector<Soft>& softEvent,int day,int index,bool* s
         */
             fintBestFit(due,duration,startTimeFrame,endTimeFrame,schedule,consec,maxConsec);
 
-
     }
 
+
+///just comment for now
     cout<<"Start:End "<<startTimeFrame<<" "<<endTimeFrame<<endl;
 
     if(maxConsec>=softEvent[index].get_duration()) {
@@ -211,26 +239,43 @@ void calender::isFitInSchedule(vector<Soft>& softEvent,int day,int index,bool* s
         fitSoftTask(softEvent,startTimeFrame,endTimeFrame,index);
         increment_counter();
 
-
     } else{
         cout<<"***   not enough time to compelte the task *** \n"<<
         "\t\t"<<softEvent[index].get_task()<<":"<<softEvent[index].get_month()<<"/"<<softEvent[index].get_day()<<
         "\n\n\n"<<endl;
 
     }
+
 }
+
 void calender::fintBestFit(int due,int duration,int& startTimeFrame,int& endTimeFrame,bool* schedule,int&consec,int& maxConsec){
 
+    if(hasEnoughTime(schedule)){
+        cout<<"";
+    }
 
 
 
 }//end of findBestFit
 
+bool calender::hasEnoughTime(bool* schedule){
+    int i=0;
+    while(i<168){
+        if(schedule[i])
+            cout<<i+1<<" "<<"Taken\n";
+        else
+            cout<<i+1<<" "<<"FREE\n";
+        i++;
+    }
+
+
+
+}
+
 void calender::findEarliestTimeFrame(int due,int duration,int& startTimeFrame,int& endTimeFrame,bool* schedule,int&consec,int& maxConsec){
 
     bool isStarted = false;
     bool isEnded = false;
-
 
     for(int a = 0; a<=due; a++) {
         if(a+1<=due) {
@@ -271,6 +316,7 @@ void calender::fitSoftTask(vector<Soft>& softEvent,int startTimeFrame,int endTim
 
     cout<<startTimeFrame<<" "<<endTimeFrame<<endl;
     int i=0;
+
     for(i=startTimeFrame;i<=endTimeFrame;i++){
         calenderBool[i] = true;
         calenderChar[i] = softEvent[index].get_task();
