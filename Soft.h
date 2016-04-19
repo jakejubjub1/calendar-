@@ -50,7 +50,6 @@ class Soft{
         char* task;
         char** soft_task_list;
         int due;
-
 };
 
 #endif // SOFT_H
