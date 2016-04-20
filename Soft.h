@@ -15,6 +15,7 @@ class Soft{
         void getTask(vector<Soft>& softEvent,int index);
         void getDate(vector<Soft>& softEvent,int index,int month,int day);
         void getDueTime(vector<Soft>& softEvent,int index);
+        void addToHard(vector<Soft>& softEvent,int index);
 
         ///getters and setters
         void set_location_name();
@@ -36,6 +37,8 @@ class Soft{
         void set_hard_task_list();
         int get_due();
         void set_due(int a);
+        
+        int findBestDay(vector<Soft>& softEvent,int index);
 
     protected:
 
