@@ -13,6 +13,10 @@ Soft::Soft(){
     set_location_name();
     set_hard_task_list();
 }
+Soft::Soft(int dur,char* t){
+    duration=dur;
+    task=t;
+}
 
 
 Soft::~Soft()
