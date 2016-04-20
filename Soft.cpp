@@ -230,6 +230,12 @@ void Soft::set_hard_task_list(){
     strcpy(soft_task_list[1],"study");
     strcpy(soft_task_list[2],"gym");
 }
+int Soft::findBestDay(vector<Soft>& softEvent, int index){
+    //worst fit algorithm  
+};
+void Soft::addToHard(vector<Soft>& softEvent,int index){
+    //add to hard tasks
+}
 
 
 
